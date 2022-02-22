@@ -1,0 +1,16 @@
+{
+    "name": "tronapi/tronapi",
+    "description": "tronapi php client library",
+    "keywords": ["tronapi"],
+    "homepage": "https://github.com/GG4mida/tronapi-demo-php",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Tronapi\\": "tronapi/"
+        }
+    },
+    "require": {
+        "php": ">=5.3.0",
+        "ext-curl": "*"
+    }
+}
