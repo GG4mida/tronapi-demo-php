@@ -77,3 +77,4 @@ sftp-config.json
 ### Composer stuffs
 vendor/
 composer.lock
+.DS_Store
