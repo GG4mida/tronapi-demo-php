@@ -5,22 +5,41 @@ require_once dirname(__DIR__).'/vendor/autoload.php';
 $publicKey = 'your public key';
 $privateKey = 'your private key';
 
-$tronapi = new \Tronapi\Tronapi($publicKey, $privateKey);
+$client = new \Tronapi\Tronapi($publicKey, $privateKey);
 
-// 订单创建
+/* =====================================================================
+账户查询
+接口地址：https://doc.tronapi.com/api/wallet/query.html
+===================================================================== */
 
-$amount = 100;
-$currency = 'CNY'; // CNY or USD
-$coinCode = 'FAU'; // FAU or USDT
-$orderId = 'your order id';
+$accountInfo = $client->account->query();
 
-$transactionData = $tronapi->transaction->create($amount, $currency, $coinCode, $orderId);
+var_dump($accountInfo);
 
-var_dump($transactionData);
+/* =====================================================================
+提现申请
+接口地址：hhttps://doc.tronapi.com/api/wallet/withdrawal_create.html
+===================================================================== */
 
-// 订单查询
+$amount = 200;
+$coinCode = 'FAU';
+$address = 'your withdrawal address';
+$notifyUrl = 'your withdrawal notify url';
+$withdrawalData = $client->account->withdrawal(
+  $amount,
+  $coinCode,
+  $address,
+  $notifyUrl
+);
 
-$token = 'your transaction token';
-$transactionInfo = $tronapi->transaction->query($token);
+var_dump($withdrawalData);
 
-var_dump($transactionInfo);
+/* =====================================================================
+提现查询
+接口地址：hhttps://doc.tronapi.com/api/wallet/withdrawal_query.html
+===================================================================== */
+
+$token = 'your withdrawal token';
+$withdrawalInfo = $client->account->withdrawal_query($token);
+
+var_dump($withdrawalInfo);

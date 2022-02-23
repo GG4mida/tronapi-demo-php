@@ -9,18 +9,19 @@
 
 ## 安装
 
-```bash
-$ npm install tronapi-node --save
-```
+1. 安装 [composer](https://getcomposer.org/) 包管理器。
+2. 下载该项目源码，然后进入源码根目录，执行：`composer install`，该命令会创建 `vendor` 目录。
+3. 项目中引用 `/vendor/autoload.php` 文件。
+
+> 关于 `composser` 的更多信息，请直接谷歌或参考官方说明文档。
 
 ## 使用
 
 ```php
-const Tronapi = require('tronapi-node');
-const client = new Tronapi({
-  public_key: 'your public key',
-  private_key: 'your private key',
-});
+  require_once dirname(__DIR__).'/vendor/autoload.php';
+  $publicKey = 'your public key';
+  $privateKey = 'your private key';
+  $client = new \Tronapi\Tronapi($publicKey, $privateKey);
 ```
 
 ### 订单
@@ -30,7 +31,25 @@ const client = new Tronapi({
 > 接口文档：https://doc.tronapi.com/api/transaction/create.html
 
 ```php
-  
+  $amount = 100;
+  $currency = 'CNY';
+  $coinCode = 'FAU';
+  $orderId = 'your order id';
+  $productName = 'your product name';
+  $customerId = 'your customer id';
+  $notifyUrl = 'your notify url';
+  $redirectUrl = 'your redirect url';
+  $transactionData = $client->transaction->create(
+    $amount,
+    $currency,
+    $coinCode,
+    $orderId,
+    $customerId,
+    $productName,
+    $notifyUrl,
+    $redirectUrl
+  );
+  var_dump($transactionData);
 ```
 
 - 订单查询
@@ -38,7 +57,9 @@ const client = new Tronapi({
 > 接口文档：https://doc.tronapi.com/api/transaction/query.html
 
 ```php
-  
+  $token = 'your transaction token';
+  $transactionInfo = $client->transaction->query($token);
+  var_dump($transactionInfo);
 ```
 
 ### 账户
@@ -48,7 +69,8 @@ const client = new Tronapi({
 > 接口文档：https://doc.tronapi.com/api/wallet/query.html
 
 ```php
-  
+  $accountInfo = $client->account->query();
+  var_dump($accountInfo);
 ```
 
 - 提现申请
@@ -56,7 +78,17 @@ const client = new Tronapi({
 > 接口文档：https://doc.tronapi.com/api/wallet/withdrawal_create.html
 
 ```php
-  
+  $amount = 200;
+  $coinCode = 'FAU';
+  $address = 'your withdrawal address';
+  $notifyUrl = 'your withdrawal notify url';
+  $withdrawalData = $client->account->withdrawal(
+    $amount,
+    $coinCode,
+    $address,
+    $notifyUrl
+  );
+  var_dump($withdrawalData);
 ```
 
 - 提现查询
@@ -64,8 +96,19 @@ const client = new Tronapi({
 > 接口文档：https://doc.tronapi.com/api/wallet/withdrawal_query.html
 
 ```php
-  
+  $token = 'your withdrawal token';
+  $withdrawalInfo = $client->account->withdrawal_query($token);
+  var_dump($withdrawalInfo);
 ```
+
+## 测试
+
+本项目 `example` 目录下包含了接口调用的示例，也可直接运行测试，步骤如下：
+
+1. 下载项目源码，并进入源码根目录
+2. `composer install`
+3. 修改相关配置信息，主要是 `public key` & `private key`
+3. `php example/transaction.php` 或者 `php example/account.php`
 
 ## 联系
 
