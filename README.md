@@ -33,8 +33,8 @@
 ```php
   $amount = 100;
   $currency = 'CNY';
-  $coinCode = 'FAU';
-  $orderId = 'your order id';
+  $coinCode = 'USDT';
+  $orderId = '123456';
   $productName = 'your product name';
   $customerId = 'your customer id';
   $notifyUrl = 'your notify url';
@@ -58,49 +58,58 @@
 
 ```php
   $token = 'your transaction token';
-  $transactionInfo = $client->transaction->query($token);
-  var_dump($transactionInfo);
+  $data = $client->transaction->query($token);
+  var_dump($data);
+```
+
+### 收款地址
+
+- 收款地址列表
+
+> 接口文档：https://doc.tronapi.com/api/address/list.html
+
+```php
+  $data = $client->address->list();
+  var_dump($data);
+```
+
+- 收款地址配置
+
+> 接口文档：https://doc.tronapi.com/api/address/add.html
+
+```php
+  $data = $client->address->add('your wallet address');
+  var_dump($data);
+```
+
+- 收款地址生成
+
+> 接口文档：https://doc.tronapi.com/api/address/generate.html
+
+```php
+  $data = $client->address->generate();
+  var_dump($data);
+```
+
+- 收款地址生成 & 替换
+
+> 接口文档：https://doc.tronapi.com/api/address/generate_add.html
+
+```php
+  $data = $client->address->generate_add();
+  var_dump($data);
 ```
 
 ### 账户
 
-- 账户查询
+- 余额查询
 
-> 接口文档：https://doc.tronapi.com/api/wallet/query.html
-
-```php
-  $accountInfo = $client->account->query();
-  var_dump($accountInfo);
-```
-
-- 提现申请
-
-> 接口文档：https://doc.tronapi.com/api/wallet/withdrawal_create.html
+> 接口文档：https://doc.tronapi.com/api/account/balance.html
 
 ```php
-  $amount = 200;
-  $coinCode = 'FAU';
-  $address = 'your withdrawal address';
-  $notifyUrl = 'your withdrawal notify url';
-  $withdrawalData = $client->account->withdrawal(
-    $amount,
-    $coinCode,
-    $address,
-    $notifyUrl
-  );
-  var_dump($withdrawalData);
+  $data = $client->account->balance();
+  var_dump($data);
 ```
-
-- 提现查询
-
-> 接口文档：https://doc.tronapi.com/api/wallet/withdrawal_query.html
-
-```php
-  $token = 'your withdrawal token';
-  $withdrawalInfo = $client->account->withdrawal_query($token);
-  var_dump($withdrawalInfo);
-```
-
 ## 测试
 
 本项目 `example` 目录下包含了接口调用的示例，也可直接运行测试，步骤如下：
@@ -108,8 +117,9 @@
 1. 下载项目源码，并进入源码根目录
 2. `composer install`
 3. 修改相关配置信息，主要是 `public key` & `private key`
-3. `php example/transaction.php` 或者 `php example/account.php`
+3. `php example/transaction.php` 或者 `php example/address.php` 或者 `php example/account.php`
 
 ## 联系
 
-可通过 [官网](https://doc.tronapi.com) `右下角` 反馈功能和我们取得联系。
+- 可通过 [官网](https://doc.tronapi.com) `右下角` 反馈功能和我们取得联系。
+- telegram: jackslowfak

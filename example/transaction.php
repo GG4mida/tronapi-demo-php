@@ -14,8 +14,8 @@ $client = new \Tronapi\Tronapi($publicKey, $privateKey);
 
 $amount = 100;
 $currency = 'CNY';
-$coinCode = 'FAU';
-$orderId = 'your order id';
+$coinCode = 'USDT';
+$orderId = '123456';
 $productName = 'your product name';
 $customerId = 'your customer id';
 $notifyUrl = 'your notify url';

@@ -2,8 +2,9 @@
 
 namespace Tronapi;
 
-use Tronapi\Account\Account;
 use Tronapi\Exception\Error;
+use Tronapi\Account\Account;
+use Tronapi\Address\Address;
 use Tronapi\Transaction\Transaction;
 
 if (!function_exists('curl_init')) {
@@ -36,6 +37,7 @@ class Tronapi
         curl_setopt($this->curl, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
         $this->account = new Account($this, $public_key, $private_key);
+        $this->address = new Address($this, $public_key, $private_key);
         $this->transaction = new Transaction($this, $public_key, $private_key);
     }
 
@@ -66,6 +68,7 @@ class Tronapi
         curl_setopt($this->curl, CURLOPT_HTTPHEADER, []);
 
         $query = http_build_query($params);
+        
         curl_setopt($this->curl, CURLOPT_URL, $this->host.'/api/'.$path.'?'.$query);
 
         $json = $this->_call();
